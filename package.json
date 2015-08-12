@@ -1,0 +1,12 @@
+{
+  "name": "caffeinator",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "babel-node app.js"
+  },
+  "dependencies": {
+    "babel": "^5.8.21",
+    "connect": "^3.4.0",
+    "serialport": "^1.7.4"
+  }
+}
