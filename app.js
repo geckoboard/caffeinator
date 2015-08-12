@@ -19,7 +19,7 @@ function sendMessage(channel, text, cb) {
 }
 
 function notifyCoffeeReady(){
-  sendMessage(SLACK_CHANNEL, '@here coffee is ready!')
+  sendMessage(SLACK_CHANNEL, '<!here> coffee is ready!')
 }
 
 function notifyCoffeeStarted(){
