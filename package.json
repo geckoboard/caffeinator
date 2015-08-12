@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "babel": "^5.8.21",
-    "connect": "^3.4.0",
+    "request": "^2.60.0",
     "serialport": "^1.7.4"
   }
 }
