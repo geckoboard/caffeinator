@@ -5,7 +5,7 @@ const SLACK_HOOK_URL = 'https://slack.com/api/chat.postMessage';
 const SLACK_CHANNEL = process.env.SLACK_CHANNEL;
 const SLACK_TOKEN = process.env.SLACK_TOKEN;
 const SLACK_USERNAME = process.env.SLACK_USERNAME;
-const THRESHOLD = 1000;
+const THRESHOLD = 100;
 
 function sendMessage(channel, text, cb) {
   const form = { channel, text, as_user: true, token: SLACK_TOKEN, username: 'caffeinator' };
@@ -30,22 +30,29 @@ const serialPort = new SerialPort(process.env.SERIAL_PORT, {
   baudrate: 9600,
 });
 
-let reading = 0,
-  lastReading;
+let readings = [],
+  on = false;
 
 serialPort.on('open', () => {
   serialPort.on('data', data => {
-    reading = parseFloat(data.toString());
+    const reading = parseFloat(data.toString());
 
-    console.log(`Reading: ${reading}`);
-    if (lastReading > THRESHOLD && reading < THRESHOLD) {
-      notifyCoffeeReady();
+    readings.push(reading);
+    if (readings.length >= 10) {
+      readings.shift();
+      const max = Math.max(...readings);
+
+      if (max > THRESHOLD && !on) {
+        console.log('BREWIN');
+        notifyCoffeeStarted();
+        on = true;
+      }
+
+      if (max < THRESHOLD && on) {
+        console.log('DUN BREWIN');
+        notifyCoffeeReady();
+        on = false;
+      }
     }
-
-    if (lastReading < THRESHOLD && reading > THRESHOLD) {
-      notifyCoffeeStarted();
-    }
-
-    lastReading = reading;
   });
 });
