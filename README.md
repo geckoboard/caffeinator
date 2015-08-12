@@ -17,5 +17,5 @@ npm install
 ## Startup
 
 ```bash
-SERIAL_PORT=/dev/tty-usbserial1 HTTP_PORT=80 npm start
+SLACK_CHANNEL=#test SLACK_TOKEN=<AUTH_TOKEN> SLACK_USERNAME=caffeinator SERIAL_PORT=/dev/tty.usbserial1 npm start
 ```
