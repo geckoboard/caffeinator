@@ -5,7 +5,8 @@ const SLACK_HOOK_URL = 'https://slack.com/api/chat.postMessage';
 const SLACK_CHANNEL = process.env.SLACK_CHANNEL;
 const SLACK_TOKEN = process.env.SLACK_TOKEN;
 const SLACK_USERNAME = process.env.SLACK_USERNAME;
-const THRESHOLD = 100;
+const START_BREWIN_THRESHOLD = process.env.START_BREWIN_THRESHOLD || 1000;
+const DONE_BREWIN_THRESHOLD = process.env.DONE_BREWIN_THRESHOLD || 100;
 
 function sendMessage(channel, text, cb) {
   const form = { channel, text, as_user: true, token: SLACK_TOKEN, username: 'caffeinator' };
@@ -30,28 +31,33 @@ const serialPort = new SerialPort(process.env.SERIAL_PORT, {
   baudrate: 9600,
 });
 
-let readings = [],
-  on = false;
-
 serialPort.on('open', () => {
+  let readings = [],
+    brewin = false;
+
   serialPort.on('data', data => {
     const reading = parseFloat(data.toString());
-
     readings.push(reading);
-    if (readings.length >= 10) {
-      readings.shift();
-      const max = Math.max(...readings);
+    console.log(reading);
 
-      if (max > THRESHOLD && !on) {
+    if (readings.length === 20) { // Sample every 20 readings
+      const avg = readings
+      .sort() // Sort from min to max
+      .slice(6, 14) // Ignore potential outliers
+      .reduce((m, v) => m + v) / 8; // Take the mean of what remains
+
+      readings.length = 0; // Truncate
+
+      if (avg > START_BREWIN_THRESHOLD && !brewin) {
         console.log('BREWIN');
         notifyCoffeeStarted();
-        on = true;
+        brewin = true;
       }
 
-      if (max < THRESHOLD && on) {
+      if (avg < DONE_BREWIN_THRESHOLD && brewin) {
         console.log('DUN BREWIN');
         notifyCoffeeReady();
-        on = false;
+        brewin = false;
       }
     }
   });
