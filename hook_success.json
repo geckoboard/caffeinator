@@ -1,0 +1,11 @@
+{
+  "event": "finished_brewin",
+  "url": "https://slack.com/api/chat.postMessage",
+  "form": {
+    "channel": "#coffee",
+    "text": "<!here> coffee is ready!",
+    "as_user": true,
+    "username": "caffeinator",
+    "token": "%SLACK_BOT_TOKEN%"
+  }
+}

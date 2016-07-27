@@ -1,0 +1,11 @@
+{
+  "event": "started_brewin",
+  "url": "https://slack.com/api/chat.postMessage",
+  "form": {
+    "channel": "%SLACK_CHANNEL%",
+    "text": "a fresh pot is brewing",
+    "as_user": true,
+    "username": "caffeinator",
+    "token": "%SLACK_BOT_TOKEN%"
+  }
+}
