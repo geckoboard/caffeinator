@@ -2,6 +2,9 @@
 
 A service to post the operating status of a coffee machine to Slack
 
+![Messages in Slack reading "A fresh pot is brewing" and "coffee is ready"](https://cloud.githubusercontent.com/assets/122096/17547522/8c362d80-5edf-11e6-9127-2c99238333f9.gif)
+
+
 ## Hardware you will need
 
 * [Particle Photon or a Particle Electron](https://www.particle.io/)
@@ -9,6 +12,8 @@ A service to post the operating status of a coffee machine to Slack
 * A two plug mains extension lead
 * A piece of stripboard, a few resistors, a capacitor, some wire and a soldering iron.
 * A little box to put it all in
+
+![Particle Photon, Current sensor and soldered components in a box](https://cloud.githubusercontent.com/assets/122096/17547477/4a8c6e30-5edf-11e6-9ad7-8cfdd25eec01.jpg)
 
 Here is the circuit you'll need to build in order to get this all working — https://openenergymonitor.org/emon/buildingblocks/measuring-voltage-with-an-acac-power-adapter. The guide is for an Arduino but the same circuit will work with the analog inputs on a Photon.
 
