@@ -29,7 +29,7 @@ You can do this using the IDE at https://build.particle.io and pasting the file 
 
 Plug your coffee machine and the USB adapter to power your Photon into the extension lead.
 
-Now go to https://dashboard.particle.io/user/logs
+Now go to https://dashboard.particle.io/logs
 
 Now if you switch your coffee machine on hopefully a `started_brewing` event will appear in the logs.
 
